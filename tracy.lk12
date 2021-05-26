@@ -58,7 +58,8 @@ function update_obj(o)
   end     
   o.invert = 1         
   o.cur_sprt = o.sprt_right
- elseif btn(3) then
+ end
+ if btn(3) then
   o.y = o.y - 1
   o.cur_sprt = o.sprt_up
  elseif btn(4) then

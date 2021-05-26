@@ -43,12 +43,20 @@ end
 
 function update_obj(o)
  if btn(1) then
-  o.x = o.x - 1
-  o.invert = -1
+  if (o.invert > 0) then
+   o.x = o.x + 8 * o.w
+  else
+   o.x = o.x - 1
+  end         
+  o.invert = -1        
   o.cur_sprt = o.sprt_left
  elseif btn(2) then
-  o.x = o.x + 1
-  o.invert = 1
+  if (o.invert < 0) then
+   o.x = o.x - 8 * o.w
+  else
+   o.x = o.x + 1
+  end     
+  o.invert = 1         
   o.cur_sprt = o.sprt_right
  elseif btn(3) then
   o.y = o.y - 1

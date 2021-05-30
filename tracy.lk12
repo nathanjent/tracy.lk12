@@ -19,10 +19,12 @@ local function init_player()
   elapsed = 0,
   state_elapsed = 0,
   tick = 1,
+  can_flip_x = true,
+  can_flip_y = false,
   sprt_map = {
    [left] = {
     idle = {
-     invert = true,
+     flip_x = true,
      width = 2,
      height = 4,
      frames = idle_lr_sprt_frames,
@@ -67,6 +69,11 @@ function _draw(dt)
  draw_obj(player)
 end
 
+function invert(flip, should_flip)
+ if flip and should_flip then return -1 end
+ return 1
+end
+
 function draw_obj(o)
  local dir_map = o.sprt_map[o.dir]
  if dir_map then
@@ -74,9 +81,13 @@ function draw_obj(o)
   if state_map then
    local sprt_map = state_map.frames[o.tick]
    if sprt_map then
-    for i=1, state_map.height do
-     for j=1, state_map.width do
-      Sprite(sprt_map[i][j], o.x+j*8-1, o.y+i*8-1)
+    for iy=1, state_map.height do
+     for ix=1, state_map.width do
+      local sx = invert(o.flip_x,o.can_flip_x)
+      local sy = invert(o.flip_y,o.can_flip_y)
+      local x = o.x+ix*sx*8-1
+      local y = o.y+iy*sy*8-1
+      Sprite(sprt_map[iy][ix], x, y, o.r, sx, sy)
      end
     end
    end
@@ -104,6 +115,7 @@ function update_obj(o, dt)
    o.x = o.x - 1
   end
   o.dir = left
+  o.flip_x = true
   o.state = "walking"
   o.state_elapsed = 0
  elseif btn(right) then
@@ -113,17 +125,20 @@ function update_obj(o, dt)
    o.x = o.x + 1
   end
   o.dir = right
+  o.flip_x = false
   o.state = "walking"
   o.state_elapsed = 0
  end
  if btn(up) then
   o.y = o.y - 1
   o.dir = up
+  o.flip_y = false
   o.state = "walking"
   o.state_elapsed = 0
  elseif btn(down) then
   o.y = o.y + 1
   o.dir = down
+  o.flip_y = true
   o.state = "walking"
   o.state_elapsed = 0
  end

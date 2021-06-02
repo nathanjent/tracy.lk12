@@ -1,0 +1,31 @@
+{
+    "Lua.diagnostics.globals": [
+        // Runtime Globals 03_DiskOSAPI
+        "SpriteGroup",
+        "isInRect",
+        "whereInGrid",
+        "input",
+
+        // Runtime Globals 04_GameAPI
+        "pause",
+        "getBtnName",
+        "btn",
+        "btnp",
+        "SaveID",
+        "SaveData",
+        "LoadData",
+
+        // Runtime Globals 05_Libraries
+        "Library",
+
+        // other
+        "clear"
+    ],
+    "Lua.diagnostics.disable": [
+        "lowercase-global"
+    ],
+    "Lua.workspace.library": {
+        "/home/njent/.local/share/love/LIKO-12/Drives/C/Libraries": true
+    },
+    "Lua.runtime.version": "Lua 5.1"
+}
